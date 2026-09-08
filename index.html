@@ -1,1 +1,250 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>American Burger</title>
 
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    .header {
+      padding: 25px 20px 15px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #ed1c24;
+    }
+
+    .subtitle {
+      color: #aaa;
+      margin-top: 5px;
+      font-size: 13px;
+    }
+
+    .hero {
+      margin: 10px 15px;
+      padding: 25px 20px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #171717, #050505);
+      border: 1px solid #292929;
+    }
+
+    .hero h1 {
+      font-size: 27px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #aaa;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .order-btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 13px;
+      background: #ed1c24;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .section-title {
+      font-size: 21px;
+      font-weight: bold;
+      margin: 25px 15px 15px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding: 0 15px;
+    }
+
+    .category {
+      background: #151515;
+      border: 1px solid #292929;
+      border-radius: 15px;
+      padding: 18px 5px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .category .icon {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .delivery {
+      margin: 20px 15px;
+      padding: 17px;
+      border-radius: 15px;
+      border: 1px solid #ed1c24;
+      text-align: center;
+    }
+
+    .delivery strong {
+      color: #ed1c24;
+      display: block;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .delivery small {
+      color: #aaa;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: #111;
+      border-top: 1px solid #292929;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .nav-item {
+      color: #777;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .nav-item.active {
+      color: #ed1c24;
+    }
+
+    .nav-icon {
+      font-size: 22px;
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="logo">
+      AMERICAN <span>BURGER</span>
+    </div>
+    <div class="subtitle">REAL BURGERS. REAL TASTE.</div>
+  </header>
+
+  <section class="hero">
+    <h1>🍔 American Burger</h1>
+    <p>
+      Ҳақиқий American Burger таъмини ҳис қилинг.
+      Буюртмани тез ва осон беринг.
+    </p>
+
+    <button class="order-btn" onclick="openMenu()">
+      🛒 Буюртма бериш
+    </button>
+  </section>
+
+  <h2 class="section-title">Категориялар</h2>
+
+  <div class="categories">
+
+    <div class="category" onclick="openMenu()">
+      <div class="icon">🍔</div>
+      Burgerлар
+    </div>
+
+    <div class="category">
+      <div class="icon">🍕</div>
+      Pizza
+    </div>
+
+    <div class="category">
+      <div class="icon">🍗</div>
+      Chicken
+    </div>
+
+    <div class="category">
+      <div class="icon">🍟</div>
+      Картошка
+    </div>
+
+    <div class="category">
+      <div class="icon">🥤</div>
+      Ичимликлар
+    </div>
+
+    <div class="category">
+      <div class="icon">☕</div>
+      Coffee
+    </div>
+
+  </div>
+
+  <div class="delivery">
+    <strong>🛵 БЕПУЛ ДОСТАВКА</strong>
+    <small>Худуд бўйича етказиб бериш</small>
+  </div>
+
+  <nav class="bottom-nav">
+
+    <div class="nav-item active">
+      <div class="nav-icon">⌂</div>
+      Бош саҳифа
+    </div>
+
+    <div class="nav-item" onclick="openMenu()">
+      <div class="nav-icon">☷</div>
+      Меню
+    </div>
+
+    <div class="nav-item">
+      <div class="nav-icon">🛒</div>
+      Сават
+    </div>
+
+    <div class="nav-item">
+      <div class="nav-icon">♙</div>
+      Профиль
+    </div>
+
+  </nav>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+
+    tg.ready();
+    tg.expand();
+
+    function openMenu() {
+      tg.showAlert("Меню ҳозир тайёрланмоқда 🍔");
+    }
+  </script>
+
+</body>
+</html>
