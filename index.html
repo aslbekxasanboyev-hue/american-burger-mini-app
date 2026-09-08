@@ -855,4 +855,252 @@
 
   function formatPrice(number) {
     return number
-      .toLocaleString('uz-UZ
+      .toLocaleString('uz-UZ')
+      .replace(/,/g, ' ') + ' сўм';
+  }
+
+
+  function addToCart(name, price) {
+
+    cart.push({
+      name: name,
+      price: price
+    });
+
+    updateCart();
+
+    showAlert(
+      '🍔 ' + name + ' саватга қўшилди!'
+    );
+  }
+
+
+  function updateCart() {
+
+    const items = document.getElementById('cartItems');
+    const totalBox = document.getElementById('cartTotal');
+
+    if (!items) return;
+
+    if (cart.length === 0) {
+
+      items.innerHTML =
+        '<div class="empty-cart">Сават ҳозирча бўш 🛒</div>';
+
+      totalBox.innerText = '0 сўм';
+
+      return;
+    }
+
+
+    let total = 0;
+
+    items.innerHTML = '';
+
+
+    cart.forEach(function(item, index) {
+
+      total += item.price;
+
+      const div = document.createElement('div');
+
+      div.className = 'cart-item';
+
+      div.innerHTML = `
+        <div>
+          <div class="cart-item-name">
+            ${item.name}
+          </div>
+          <div style="color:#777;font-size:11px;">
+            1 дона
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;">
+
+          <div class="cart-item-price">
+            ${formatPrice(item.price)}
+          </div>
+
+          <button
+            onclick="removeFromCart(${index})"
+            style="
+              background:#ed1c24;
+              color:#fff;
+              border:none;
+              width:28px;
+              height:28px;
+              border-radius:8px;
+              cursor:pointer;
+            "
+          >
+            ×
+          </button>
+
+        </div>
+      `;
+
+      items.appendChild(div);
+
+    });
+
+
+    totalBox.innerText = formatPrice(total);
+
+  }
+
+
+  function removeFromCart(index) {
+
+    cart.splice(index, 1);
+
+    updateCart();
+
+  }
+
+
+  /* MENU */
+
+  function openMenu() {
+
+    document.getElementById('menu')
+      .scrollIntoView({
+        behavior: 'smooth'
+      });
+
+  }
+
+
+  /* CART */
+
+  function showCart() {
+
+    const box = document.getElementById('cartBox');
+
+    box.style.display = 'block';
+
+    box.scrollIntoView({
+      behavior: 'smooth'
+    });
+
+    updateCart();
+
+  }
+
+
+  /* HOME */
+
+  function goHome() {
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
+  }
+
+
+  /* PROFILE */
+
+  function showProfile() {
+
+    showAlert(
+      '👤 Профиль ҳозирча тайёрланмоқда.'
+    );
+
+  }
+
+
+  /* OTHER CATEGORIES */
+
+  function comingSoon(category) {
+
+    showAlert(
+      '🔥 ' + category +
+      ' бўлими тез орада қўшилади!'
+    );
+
+  }
+
+
+  /* CHECKOUT */
+
+  function checkout() {
+
+    if (cart.length === 0) {
+
+      showAlert(
+        '🛒 Аввало саватга маҳсулот қўшинг.'
+      );
+
+      return;
+    }
+
+
+    let message = '🍔 AMERICAN BURGER%0A%0A';
+
+    let total = 0;
+
+
+    cart.forEach(function(item) {
+
+      message +=
+        '• ' +
+        item.name +
+        ' — ' +
+        formatPrice(item.price) +
+        '%0A';
+
+      total += item.price;
+
+    });
+
+
+    message +=
+      '%0A💰 Жами: ' +
+      formatPrice(total);
+
+
+    if (tg) {
+
+      tg.showAlert(
+        'Буюртмангиз қабул қилишга тайёр! Кейинги қадамда адрес ва тўлов тизимини қўшамиз.'
+      );
+
+    } else {
+
+      alert(
+        'Буюртма тайёр! Жами: ' +
+        formatPrice(total)
+      );
+
+    }
+
+  }
+
+
+  /* ALERT */
+
+  function showAlert(text) {
+
+    if (tg && tg.showAlert) {
+
+      tg.showAlert(text);
+
+    } else {
+
+      alert(text);
+
+    }
+
+  }
+
+
+  /* START */
+
+  updateCart();
+
+</script>
+
+</body>
+</html>
