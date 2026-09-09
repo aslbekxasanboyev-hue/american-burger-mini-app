@@ -1,1106 +1,778 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <title>American Burger</title>
+<title>American Burger</title>
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
+<style>
 
-    body {
-      background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      padding-bottom: 90px;
-    }
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
 
-    .container {
-      width: 100%;
-      max-width: 600px;
-      margin: auto;
-      padding: 16px;
-    }
+body{
+  background:#000;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  padding-bottom:90px;
+}
 
-    /* HEADER */
+.container{
+  max-width:650px;
+  margin:auto;
+  padding:15px;
+}
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-    }
+/* HEADER */
 
-    .logo {
-      font-size: 23px;
-      font-weight: 900;
-      letter-spacing: 1px;
-    }
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
 
-    .logo span {
-      color: #ed1c24;
-    }
+.logo img{
+  width:170px;
+  height:auto;
+  display:block;
+}
 
-    .cart-top {
-      background: #ed1c24;
-      border: none;
-      color: white;
-      width: 45px;
-      height: 45px;
-      border-radius: 14px;
-      font-size: 21px;
-      cursor: pointer;
-    }
+.cart-button{
+  width:45px;
+  height:45px;
+  border:0;
+  border-radius:13px;
+  background:#ed1c24;
+  color:#fff;
+  font-size:20px;
+  cursor:pointer;
+}
 
-    /* HERO */
+/* HERO */
 
-    .hero {
-      background: linear-gradient(145deg, #1a1a1a, #080808);
-      border: 1px solid #292929;
-      border-radius: 22px;
-      padding: 22px;
-      margin-bottom: 22px;
-    }
+.hero{
+  background:
+    linear-gradient(145deg,#181818,#080808);
+  border:1px solid #292929;
+  border-radius:22px;
+  padding:22px;
+  margin-bottom:22px;
+}
 
-    .hero-small {
-      color: #ed1c24;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
+.hero-label{
+  color:#ed1c24;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+  margin-bottom:8px;
+}
 
-    .hero h1 {
-      font-size: 30px;
-      line-height: 1.05;
-      margin-bottom: 10px;
-    }
+.hero h1{
+  font-size:30px;
+  line-height:1.05;
+  margin-bottom:10px;
+}
 
-    .hero p {
-      color: #aaa;
-      font-size: 14px;
-      line-height: 1.4;
-      margin-bottom: 18px;
-    }
+.hero p{
+  color:#999;
+  font-size:14px;
+  line-height:1.5;
+  margin-bottom:18px;
+}
 
-    .order-btn {
-      width: 100%;
-      border: none;
-      background: #ed1c24;
-      color: white;
-      font-size: 16px;
-      font-weight: 800;
-      padding: 15px;
-      border-radius: 14px;
-      cursor: pointer;
-    }
+.main-button{
+  width:100%;
+  background:#ed1c24;
+  color:#fff;
+  border:0;
+  border-radius:14px;
+  padding:15px;
+  font-size:16px;
+  font-weight:900;
+}
 
-    .order-btn:active,
-    .add-btn:active,
-    .cart-top:active {
-      transform: scale(.97);
-    }
+/* CATEGORIES */
 
-    /* SECTION */
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:24px 0 14px;
+}
 
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 25px 0 14px;
-    }
+.section-title h2{
+  font-size:21px;
+}
 
-    .section-title h2 {
-      font-size: 21px;
-    }
+.section-title span{
+  color:#ed1c24;
+  font-size:12px;
+  font-weight:bold;
+}
 
-    .section-title span {
-      color: #ed1c24;
-      font-size: 13px;
-    }
+.categories{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
 
-    /* CATEGORIES */
+.category{
+  background:#151515;
+  border:1px solid #292929;
+  border-radius:15px;
+  padding:17px 5px;
+  text-align:center;
+  cursor:pointer;
+  transition:.15s;
+}
 
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
+.category:active{
+  transform:scale(.96);
+}
 
-    .category {
-      background: #151515;
-      border: 1px solid #292929;
-      border-radius: 15px;
-      padding: 17px 5px;
-      text-align: center;
-      cursor: pointer;
-    }
+.category-icon{
+  font-size:25px;
+  margin-bottom:7px;
+}
 
-    .category:active {
-      transform: scale(.97);
-    }
+.category-name{
+  font-size:12px;
+  font-weight:800;
+}
 
-    .category-icon {
-      font-size: 25px;
-      margin-bottom: 7px;
-    }
+/* MENU */
 
-    .category-name {
-      font-size: 12px;
-      font-weight: bold;
-    }
+.category-section{
+  margin-top:30px;
+  scroll-margin-top:15px;
+}
 
-    /* PRODUCTS */
+.category-heading{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:14px;
+}
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 13px;
-    }
+.category-heading h2{
+  font-size:21px;
+}
 
-    .product {
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 18px;
-      overflow: hidden;
-    }
+.red-line{
+  height:3px;
+  width:35px;
+  background:#ed1c24;
+  border-radius:5px;
+}
 
-    .product-img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      display: block;
-      background: #1b1b1b;
-    }
+/* PRODUCTS */
 
-    .product-info {
-      padding: 11px;
-    }
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
 
-    .product-name {
-      font-size: 15px;
-      font-weight: 800;
-      min-height: 36px;
-      line-height: 1.2;
-    }
+.product{
+  background:#111;
+  border:1px solid #292929;
+  border-radius:17px;
+  overflow:hidden;
+}
 
-    .product-price {
-      color: #ed1c24;
-      font-size: 16px;
-      font-weight: 900;
-      margin: 8px 0;
-    }
+.product-image{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+  background:#181818;
+}
 
-    .add-btn {
-      width: 100%;
-      border: none;
-      background: white;
-      color: black;
-      padding: 10px 5px;
-      border-radius: 10px;
-      font-weight: 800;
-      cursor: pointer;
-    }
+.no-image{
+  aspect-ratio:1/1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#151515;
+  font-size:50px;
+}
 
-    /* DELIVERY */
+.product-info{
+  padding:11px;
+}
 
-    .delivery {
-      margin-top: 22px;
-      background: #151515;
-      border: 1px solid #292929;
-      border-radius: 18px;
-      padding: 17px;
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
+.product-name{
+  font-size:14px;
+  font-weight:900;
+  line-height:1.25;
+  min-height:35px;
+}
 
-    .delivery-icon {
-      font-size: 28px;
-    }
+.product-desc{
+  color:#777;
+  font-size:10px;
+  line-height:1.3;
+  min-height:27px;
+  margin-top:4px;
+}
 
-    .delivery h3 {
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
+.price{
+  color:#ed1c24;
+  font-size:16px;
+  font-weight:900;
+  margin:8px 0;
+}
 
-    .delivery p {
-      color: #999;
-      font-size: 12px;
-    }
+.add-button{
+  width:100%;
+  background:#fff;
+  color:#000;
+  border:0;
+  border-radius:10px;
+  padding:10px 4px;
+  font-size:12px;
+  font-weight:900;
+}
 
-    /* BOTTOM NAV */
+/* DELIVERY */
 
-    .bottom-nav {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(10,10,10,.96);
-      border-top: 1px solid #292929;
-      height: 70px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 100;
-    }
+.delivery{
+  margin-top:25px;
+  background:#151515;
+  border:1px solid #292929;
+  border-radius:18px;
+  padding:17px;
+}
 
-    .nav-btn {
-      background: none;
-      border: none;
-      color: #777;
-      font-size: 11px;
-      cursor: pointer;
-      text-align: center;
-    }
+.delivery h3{
+  font-size:15px;
+  margin-bottom:5px;
+}
 
-    .nav-btn div {
-      font-size: 22px;
-      margin-bottom: 3px;
-    }
+.delivery p{
+  color:#888;
+  font-size:12px;
+}
 
-    .nav-btn.active {
-      color: #ed1c24;
-    }
+/* CART */
 
-    /* CART */
+.cart{
+  display:none;
+  margin-top:25px;
+  background:#111;
+  border:1px solid #292929;
+  border-radius:18px;
+  padding:15px;
+}
 
-    .cart-box {
-      display: none;
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 18px;
-      padding: 16px;
-      margin-top: 15px;
-    }
+.cart-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:12px 0;
+  border-bottom:1px solid #292929;
+}
 
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #292929;
-    }
+.cart-name{
+  font-size:13px;
+  font-weight:800;
+}
 
-    .cart-item-name {
-      font-size: 14px;
-      font-weight: bold;
-    }
+.cart-price{
+  color:#ed1c24;
+  font-size:13px;
+  font-weight:900;
+  white-space:nowrap;
+}
 
-    .cart-item-price {
-      color: #ed1c24;
-      font-weight: bold;
-    }
+.quantity{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
 
-    .cart-total {
-      display: flex;
-      justify-content: space-between;
-      font-size: 18px;
-      font-weight: 900;
-      margin-top: 18px;
-    }
+.quantity button{
+  width:28px;
+  height:28px;
+  border:0;
+  border-radius:8px;
+  background:#ed1c24;
+  color:#fff;
+  font-weight:bold;
+  font-size:17px;
+}
 
-    .empty-cart {
-      color: #888;
-      text-align: center;
-      padding: 20px 0;
-    }
+.quantity span{
+  min-width:15px;
+  text-align:center;
+  font-weight:bold;
+}
 
-    /* MOBILE */
+.cart-total{
+  display:flex;
+  justify-content:space-between;
+  margin-top:18px;
+  font-size:19px;
+  font-weight:900;
+}
 
-    @media (max-width: 360px) {
-      .products {
-        grid-template-columns: 1fr 1fr;
-        gap: 9px;
-      }
+.checkout{
+  width:100%;
+  margin-top:16px;
+  border:0;
+  border-radius:13px;
+  padding:15px;
+  background:#ed1c24;
+  color:#fff;
+  font-size:15px;
+  font-weight:900;
+}
 
-      .product-info {
-        padding: 8px;
-      }
+.empty{
+  text-align:center;
+  color:#777;
+  padding:20px;
+}
 
-      .product-name {
-        font-size: 13px;
-      }
+/* BOTTOM */
 
-      .product-price {
-        font-size: 14px;
-      }
+.bottom{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:70px;
+  background:rgba(8,8,8,.97);
+  border-top:1px solid #292929;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:100;
+}
 
-      .add-btn {
-        font-size: 11px;
-      }
-    }
-  </style>
+.nav{
+  background:none;
+  border:0;
+  color:#777;
+  font-size:10px;
+  font-weight:bold;
+}
+
+.nav-icon{
+  font-size:21px;
+  margin-bottom:3px;
+}
+
+.nav.active{
+  color:#ed1c24;
+}
+
+@media(max-width:360px){
+
+  .logo img{
+    width:145px;
+  }
+
+  .products{
+    gap:8px;
+  }
+
+  .product-info{
+    padding:8px;
+  }
+
+  .product-name{
+    font-size:13px;
+  }
+
+  .price{
+    font-size:14px;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <!-- HEADER -->
+<!-- HEADER -->
 
-  <div class="header">
-    <div class="logo">
-      AMERICAN <span>BURGER</span>
-    </div>
+<div class="header">
 
-    <button class="cart-top" onclick="showCart()">
-      🛒
-    </button>
-  </div>
-
-
-  <!-- HERO -->
-
-  <div class="hero">
-
-    <div class="hero-small">
-      REAL BURGERS. REAL TASTE.
-    </div>
-
-    <h1>
-      Ҳақиқий Burger<br>
-      Ҳақиқий таъм 🍔
-    </h1>
-
-    <p>
-      American Burger'да янги тайёрланган
-      бургерлар ва мазали таомлар.
-    </p>
-
-    <button class="order-btn" onclick="openMenu()">
-      🛒 Буюртма бериш
-    </button>
-
-  </div>
-
-
-  <!-- CATEGORIES -->
-
-  <div class="section-title">
-    <h2>Категориялар</h2>
-  </div>
-
-  <div class="categories">
-
-    <div class="category" onclick="openMenu()">
-      <div class="category-icon">🍔</div>
-      <div class="category-name">Burgerлар</div>
-    </div>
-
-    <div class="category" onclick="comingSoon('Pizza')">
-      <div class="category-icon">🍕</div>
-      <div class="category-name">Pizza</div>
-    </div>
-
-    <div class="category" onclick="comingSoon('Chicken')">
-      <div class="category-icon">🍗</div>
-      <div class="category-name">Chicken</div>
-    </div>
-
-    <div class="category" onclick="comingSoon('Fries')">
-      <div class="category-icon">🍟</div>
-      <div class="category-name">Картошка</div>
-    </div>
-
-    <div class="category" onclick="comingSoon('Drinks')">
-      <div class="category-icon">🥤</div>
-      <div class="category-name">Ичимликлар</div>
-    </div>
-
-    <div class="category" onclick="comingSoon('Coffee')">
-      <div class="category-icon">☕</div>
-      <div class="category-name">Coffee</div>
-    </div>
-
-  </div>
-
-
-  <!-- BURGER MENU -->
-
-  <div id="menu">
-
-    <div class="section-title">
-      <h2>🍔 Burgerлар</h2>
-      <span>10 та</span>
-    </div>
-
-    <div class="products">
-
-
-      <!-- 1 -->
-
-      <div class="product">
-
-        <img
-          class="product-img"
-          src="01_Classic_Burger.png"
-          alt="Classic Burger"
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            Classic Burger
-          </div>
-
-          <div class="product-price">
-            56 000 сўм
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="addToCart('Classic Burger',56000)"
-          >
-            + Саватга
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- 2 -->
-
-      <div class="product">
-
-        <img
-          class="product-img"
-          src="02_Cheeseburger.png"
-          alt="Cheeseburger"
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            Cheeseburger
-          </div>
-
-          <div class="product-price">
-            62 000 сўм
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="addToCart('Cheeseburger',62000)"
-          >
-            + Саватга
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- 3 -->
-
-      <div class="product">
-
-        <img
-          class="product-img"
-          src="03_Double_Cheeseburger.png"
-          alt="Double Cheeseburger"
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            Double Cheeseburger
-          </div>
-
-          <div class="product-price">
-            94 000 сўм
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="addToCart('Double Cheeseburger',94000)"
-          >
-            + Саватга
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- 4 -->
-
-      <div class="product">
-
-        <img
-          class="product-img"
-          src="04_American_Burger.png"
-          alt="American Burger"
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            American Burger
-          </div>
-
-          <div class="product-price">
-            81 000 сўм
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="addToCart('American Burger',81000)"
-          >
-            + Саватга
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- 5 -->
-
-      <div class="product">
-
-        <img
-          class="product-img"
-          src="05_BBQ_Burger.png"
-          alt="BBQ Burger"
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            BBQ Burger
-          </div>
-
-          <div class="product-price">
-            75 000 сўм
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="addToCart('BBQ Burger',75000)"
-          >
-            + Саватга
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- 6 -->
-
-      <div class="product">
-
-        <img
-          class="product-img"
-          src="06_Mushroom_Burger.png"
-          alt="Mushroom Burger"
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            Mushroom Burger
-          </div>
-
-          <div class="product-price">
-            69 000 сўм
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="addToCart('Mushroom Burger',69000)"
-          >
-            + Саватга
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- 7 -->
-
-      <div class="product">
-
-        <img
-          class="product-img"
-          src="07_Jalapeno_Burger.png"
-          alt="Jalapeno Burger"
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            Jalapeño Burger
-          </div>
-
-          <div class="product-price">
-            69 000 сўм
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="addToCart('Jalapeño Burger',69000)"
-          >
-            + Саватга
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- 8 -->
-
-      <div class="product">
-
-        <img
-          class="product-img"
-          src="08_Chicken_Burger.png"
-          alt="Chicken Burger"
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            Chicken Burger
-          </div>
-
-          <div class="product-price">
-            56 000 сўм
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="addToCart('Chicken Burger',56000)"
-          >
-            + Саватга
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- 9 -->
-
-      <div class="product">
-
-        <img
-          class="product-img"
-          src="09_Crispy_Chicken_Burger.png"
-          alt="Crispy Chicken Burger"
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            Crispy Chicken Burger
-          </div>
-
-          <div class="product-price">
-            62 000 сўм
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="addToCart('Crispy Chicken Burger',62000)"
-          >
-            + Саватга
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- 10 -->
-
-      <div class="product">
-
-        <img
-          class="product-img"
-          src="10_Mega_Burger.png"
-          alt="Mega Burger"
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            Mega Burger
-          </div>
-
-          <div class="product-price">
-            112 000 сўм
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="addToCart('Mega Burger',112000)"
-          >
-            + Саватга
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- DELIVERY -->
-
-  <div class="delivery">
-
-    <div class="delivery-icon">
-      🛵
-    </div>
-
-    <div>
-      <h3>🚚 Бепул доставка</h3>
-      <p>
-        Белгиланган ҳудуд ичида доставка — 0 сўм
-      </p>
-    </div>
-
-  </div>
-
-
-  <!-- CART -->
-
-  <div id="cartBox" class="cart-box">
-
-    <div class="section-title">
-      <h2>🛒 Сават</h2>
-    </div>
-
-    <div id="cartItems"></div>
-
-    <div class="cart-total">
-      <span>Жами:</span>
-      <span id="cartTotal">0 сўм</span>
-    </div>
-
-    <br>
-
-    <button
-      class="order-btn"
-      onclick="checkout()"
+  <div class="logo">
+    <img
+      src="american_burger_logo.png"
+      alt="American Burger"
     >
-      Буюртмани расмийлаштириш
-    </button>
+  </div>
 
+  <button
+    class="cart-button"
+    onclick="showCart()"
+  >
+    🛒
+  </button>
+
+</div>
+
+
+<!-- HERO -->
+
+<div class="hero">
+
+  <div class="hero-label">
+    REAL BURGERS. REAL TASTE.
+  </div>
+
+  <h1>
+    AMERICAN<br>
+    BURGER
+  </h1>
+
+  <p>
+    Янги тайёрланган бургерлар,
+    hot dog, shawarma ва snacks.
+  </p>
+
+  <button
+    class="main-button"
+    onclick="scrollToCategory('burgers')"
+  >
+    БУЮРТМА БЕРИШ
+  </button>
+
+</div>
+
+
+<!-- CATEGORIES -->
+
+<div class="section-title">
+  <h2>Меню</h2>
+  <span>БАРЧАСИ</span>
+</div>
+
+<div class="categories">
+
+  <div class="category"
+       onclick="scrollToCategory('burgers')">
+    <div class="category-icon">🍔</div>
+    <div class="category-name">Burgerлар</div>
+  </div>
+
+  <div class="category"
+       onclick="scrollToCategory('hotdogs')">
+    <div class="category-icon">🌭</div>
+    <div class="category-name">Hot Dog</div>
+  </div>
+
+  <div class="category"
+       onclick="scrollToCategory('shawarma')">
+    <div class="category-icon">🌯</div>
+    <div class="category-name">Shawarma</div>
+  </div>
+
+  <div class="category"
+       onclick="scrollToCategory('snacks')">
+    <div class="category-icon">🍟</div>
+    <div class="category-name">Snacks</div>
+  </div>
+
+  <div class="category"
+       onclick="scrollToCategory('drinks')">
+    <div class="category-icon">🥤</div>
+    <div class="category-name">Drinks</div>
+  </div>
+
+  <div class="category"
+       onclick="scrollToCategory('desserts')">
+    <div class="category-icon">🍰</div>
+    <div class="category-name">Dessert</div>
+  </div>
+
+  <div class="category"
+       onclick="scrollToCategory('combos')">
+    <div class="category-icon">🔥</div>
+    <div class="category-name">Combo</div>
   </div>
 
 </div>
 
 
-<!-- BOTTOM NAV -->
+<!-- BURGERS -->
 
-<div class="bottom-nav">
+<div
+  class="category-section"
+  id="burgers"
+>
 
-  <button class="nav-btn active" onclick="goHome()">
-    <div>🏠</div>
-    Асосий
-  </button>
+<div class="category-heading">
+  <div class="red-line"></div>
+  <h2>🍔 Burgerлар</h2>
+</div>
 
-  <button class="nav-btn" onclick="openMenu()">
-    <div>🍔</div>
-    Меню
-  </button>
+<div class="products">
 
-  <button class="nav-btn" onclick="showCart()">
-    <div>🛒</div>
-    Сават
-  </button>
 
-  <button class="nav-btn" onclick="showProfile()">
-    <div>👤</div>
-    Профиль
-  </button>
+<!-- 1 -->
 
+<div class="product">
+<img class="product-image"
+src="01_Classic_Burger.png">
+
+<div class="product-info">
+
+<div class="product-name">
+Classic Burger
+</div>
+
+<div class="price">
+56 000 сўм
+</div>
+
+<button class="add-button"
+onclick="add('Classic Burger',56000)">
++ САВАТГА
+</button>
+
+</div>
 </div>
 
 
-<script>
+<!-- 2 -->
 
-  /* TELEGRAM */
+<div class="product">
+<img class="product-image"
+src="02_Cheeseburger.png">
 
-  const tg = window.Telegram && window.Telegram.WebApp
-    ? window.Telegram.WebApp
-    : null;
+<div class="product-info">
 
-  if (tg) {
-    tg.ready();
-    tg.expand();
-  }
+<div class="product-name">
+Cheeseburger
+</div>
 
+<div class="price">
+62 000 сўм
+</div>
 
-  /* CART */
+<button class="add-button"
+onclick="add('Cheeseburger',62000)">
++ САВАТГА
+</button>
 
-  let cart = [];
+</div>
+</div>
 
 
-  function formatPrice(number) {
-    return number
-      .toLocaleString('uz-UZ')
-      .replace(/,/g, ' ') + ' сўм';
-  }
+<!-- 3 -->
 
+<div class="product">
+<img class="product-image"
+src="03_Double_Cheeseburger.png">
 
-  function addToCart(name, price) {
+<div class="product-info">
 
-    cart.push({
-      name: name,
-      price: price
-    });
+<div class="product-name">
+Double Cheeseburger
+</div>
 
-    updateCart();
+<div class="price">
+94 000 сўм
+</div>
 
-    showAlert(
-      '🍔 ' + name + ' саватга қўшилди!'
-    );
-  }
+<button class="add-button"
+onclick="add('Double Cheeseburger',94000)">
++ САВАТГА
+</button>
 
+</div>
+</div>
 
-  function updateCart() {
 
-    const items = document.getElementById('cartItems');
-    const totalBox = document.getElementById('cartTotal');
+<!-- 4 -->
 
-    if (!items) return;
+<div class="product">
+<img class="product-image"
+src="04_American_Burger.png">
 
-    if (cart.length === 0) {
+<div class="product-info">
 
-      items.innerHTML =
-        '<div class="empty-cart">Сават ҳозирча бўш 🛒</div>';
+<div class="product-name">
+American Burger
+</div>
 
-      totalBox.innerText = '0 сўм';
+<div class="price">
+81 000 сўм
+</div>
 
-      return;
-    }
+<button class="add-button"
+onclick="add('American Burger',81000)">
++ САВАТГА
+</button>
 
+</div>
+</div>
 
-    let total = 0;
 
-    items.innerHTML = '';
+<!-- 5 -->
 
+<div class="product">
+<img class="product-image"
+src="05_BBQ_Burger.png">
 
-    cart.forEach(function(item, index) {
+<div class="product-info">
 
-      total += item.price;
+<div class="product-name">
+BBQ Burger
+</div>
 
-      const div = document.createElement('div');
+<div class="price">
+75 000 сўм
+</div>
 
-      div.className = 'cart-item';
+<button class="add-button"
+onclick="add('BBQ Burger',75000)">
++ САВАТГА
+</button>
 
-      div.innerHTML = `
-        <div>
-          <div class="cart-item-name">
-            ${item.name}
-          </div>
-          <div style="color:#777;font-size:11px;">
-            1 дона
-          </div>
-        </div>
+</div>
+</div>
 
-        <div style="display:flex;align-items:center;gap:8px;">
 
-          <div class="cart-item-price">
-            ${formatPrice(item.price)}
-          </div>
+<!-- 6 -->
 
-          <button
-            onclick="removeFromCart(${index})"
-            style="
-              background:#ed1c24;
-              color:#fff;
-              border:none;
-              width:28px;
-              height:28px;
-              border-radius:8px;
-              cursor:pointer;
-            "
-          >
-            ×
-          </button>
+<div class="product">
+<img class="product-image"
+src="06_Mushroom_Burger.png">
 
-        </div>
-      `;
+<div class="product-info">
 
-      items.appendChild(div);
+<div class="product-name">
+Mushroom Burger
+</div>
 
-    });
+<div class="price">
+69 000 сўм
+</div>
 
+<button class="add-button"
+onclick="add('Mushroom Burger',69000)">
++ САВАТГА
+</button>
 
-    totalBox.innerText = formatPrice(total);
+</div>
+</div>
 
-  }
 
+<!-- 7 -->
 
-  function removeFromCart(index) {
+<div class="product">
+<img class="product-image"
+src="07_Jalapeno_Burger.png">
 
-    cart.splice(index, 1);
+<div class="product-info">
 
-    updateCart();
+<div class="product-name">
+Jalapeño Burger
+</div>
 
-  }
+<div class="price">
+69 000 сўм
+</div>
 
+<button class="add-button"
+onclick="add('Jalapeño Burger',69000)">
++ САВАТГА
+</button>
 
-  /* MENU */
+</div>
+</div>
 
-  function openMenu() {
 
-    document.getElementById('menu')
-      .scrollIntoView({
-        behavior: 'smooth'
-      });
+<!-- 8 -->
 
-  }
+<div class="product">
+<img class="product-image"
+src="08_Chicken_Burger.png">
 
+<div class="product-info">
 
-  /* CART */
+<div class="product-name">
+Chicken Burger
+</div>
 
-  function showCart() {
+<div class="price">
+56 000 сўм
+</div>
 
-    const box = document.getElementById('cartBox');
+<button class="add-button"
+onclick="add('Chicken Burger',56000)">
++ САВАТГА
+</button>
 
-    box.style.display = 'block';
+</div>
+</div>
 
-    box.scrollIntoView({
-      behavior: 'smooth'
-    });
 
-    updateCart();
+<!-- 9 -->
 
-  }
+<div class="product">
+<img class="product-image"
+src="09_Crispy_Chicken_Burger.png">
 
+<div class="product-info">
 
-  /* HOME */
+<div class="product-name">
+Crispy Chicken Burger
+</div>
 
-  function goHome() {
+<div class="price">
+62 000 сўм
+</div>
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+<button class="add-button"
+onclick="add('Crispy Chicken Burger',62000)">
++ САВАТГА
+</button>
 
-  }
+</div>
+</div>
 
 
-  /* PROFILE */
+<!-- 10 -->
 
-  function showProfile() {
+<div class="product">
+<img class="product-image"
+src="10_Mega_Burger.png">
 
-    showAlert(
-      '👤 Профиль ҳозирча тайёрланмоқда.'
-    );
+<div class="product-info">
 
-  }
+<div class="product-name">
+Mega Burger
+</div>
 
+<div class="price">
+112 000 сўм
+</div>
 
-  /* OTHER CATEGORIES */
+<button class="add-button"
+onclick="add('Mega Burger',112000)">
++ САВАТГА
+</button>
 
-  function comingSoon(category) {
+</div>
+</div>
 
-    showAlert(
-      '🔥 ' + category +
-      ' бўлими тез орада қўшилади!'
-    );
-
-  }
-
-
-  /* CHECKOUT */
-
-  function checkout() {
-
-    if (cart.length === 0) {
-
-      showAlert(
-        '🛒 Аввало саватга маҳсулот қўшинг.'
-      );
-
-      return;
-    }
-
-
-    let message = '🍔 AMERICAN BURGER%0A%0A';
-
-    let total = 0;
-
-
-    cart.forEach(function(item) {
-
-      message +=
-        '• ' +
-        item.name +
-        ' — ' +
-        formatPrice(item.price) +
-        '%0A';
-
-      total += item.price;
-
-    });
-
-
-    message +=
-      '%0A💰 Жами: ' +
-      formatPrice(total);
-
-
-    if (tg) {
-
-      tg.showAlert(
-        'Буюртмангиз қабул қилишга тайёр! Кейинги қадамда адрес ва тўлов тизимини қўшамиз.'
-      );
-
-    } else {
-
-      alert(
-        'Буюртма тайёр! Жами: ' +
-        formatPrice(total)
-      );
-
-    }
-
-  }
-
-
-  /* ALERT */
-
-  function showAlert(text) {
-
-    if (tg && tg.showAlert) {
-
-      tg.showAlert(text);
-
-    } else {
-
-      alert(text);
-
-    }
-
-  }
-
-
-  /* START */
-
-  updateCart();
-
-</script>
-
-</body>
-</html>
+</div>
+</
