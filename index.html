@@ -2,193 +2,158 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>American Burger</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
+:root{
+  --black:#050505;
+  --card:#111111;
+  --red:#ed1c24;
+  --white:#ffffff;
+  --gray:#aaaaaa;
+  --border:#292929;
+}
 
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
-  -webkit-tap-highlight-color:transparent;
 }
 
 body{
-  background:#000;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
+  margin:0;
+  background:var(--black);
+  color:white;
+  font-family:Arial,sans-serif;
   padding-bottom:90px;
 }
 
-.container{
-  max-width:650px;
-  margin:auto;
-  padding:15px;
+button{
+  font-family:inherit;
+  cursor:pointer;
 }
 
 /* HEADER */
 
 .header{
+  padding:16px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:18px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(5,5,5,.96);
 }
 
 .logo img{
-  width:170px;
-  height:auto;
-  display:block;
+  width:145px;
+  max-height:60px;
+  object-fit:contain;
 }
 
 .cart-button{
-  width:45px;
-  height:45px;
-  border:0;
-  border-radius:13px;
-  background:#ed1c24;
-  color:#fff;
-  font-size:20px;
-  cursor:pointer;
+  background:#111;
+  color:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:10px 14px;
+  font-size:16px;
 }
 
 /* HERO */
 
 .hero{
-  background:
-    linear-gradient(145deg,#181818,#080808);
-  border:1px solid #292929;
+  margin:10px 16px 20px;
+  padding:22px 18px;
   border-radius:22px;
-  padding:22px;
-  margin-bottom:22px;
+  border:1px solid #292929;
+  background:linear-gradient(145deg,#171717,#080808);
 }
 
-.hero-label{
-  color:#ed1c24;
+.hero-small{
+  color:var(--red);
   font-size:12px;
-  font-weight:900;
-  letter-spacing:1px;
-  margin-bottom:8px;
+  font-weight:bold;
+  letter-spacing:2px;
 }
 
 .hero h1{
-  font-size:30px;
-  line-height:1.05;
-  margin-bottom:10px;
+  font-size:31px;
+  line-height:1;
+  margin:8px 0;
 }
 
 .hero p{
-  color:#999;
-  font-size:14px;
+  color:#bbb;
   line-height:1.5;
-  margin-bottom:18px;
 }
 
-.main-button{
+.order-button{
   width:100%;
-  background:#ed1c24;
-  color:#fff;
-  border:0;
+  border:none;
+  background:var(--red);
+  color:white;
+  padding:14px;
   border-radius:14px;
-  padding:15px;
-  font-size:16px;
-  font-weight:900;
-}
-
-/* CATEGORIES */
-
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:24px 0 14px;
-}
-
-.section-title h2{
-  font-size:21px;
-}
-
-.section-title span{
-  color:#ed1c24;
-  font-size:12px;
   font-weight:bold;
+  font-size:15px;
+}
+
+/* CATEGORY */
+
+.title{
+  font-size:21px;
+  font-weight:900;
+  margin:18px 16px 12px;
 }
 
 .categories{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
+  display:flex;
   gap:9px;
+  overflow-x:auto;
+  padding:0 16px 8px;
+  scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+  display:none;
 }
 
 .category{
-  background:#151515;
+  white-space:nowrap;
+  background:#111;
+  color:#ddd;
   border:1px solid #292929;
-  border-radius:15px;
-  padding:17px 5px;
-  text-align:center;
-  cursor:pointer;
-  transition:.15s;
+  border-radius:13px;
+  padding:10px 13px;
 }
 
-.category:active{
-  transform:scale(.96);
-}
-
-.category-icon{
-  font-size:25px;
-  margin-bottom:7px;
-}
-
-.category-name{
-  font-size:12px;
-  font-weight:800;
-}
-
-/* MENU */
-
-.category-section{
-  margin-top:30px;
-  scroll-margin-top:15px;
-}
-
-.category-heading{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  margin-bottom:14px;
-}
-
-.category-heading h2{
-  font-size:21px;
-}
-
-.red-line{
-  height:3px;
-  width:35px;
-  background:#ed1c24;
-  border-radius:5px;
+.category.active{
+  background:var(--red);
+  border-color:var(--red);
+  color:white;
 }
 
 /* PRODUCTS */
 
 .products{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:1fr 1fr;
   gap:12px;
+  padding:0 16px;
 }
 
 .product{
-  background:#111;
-  border:1px solid #292929;
-  border-radius:17px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
   overflow:hidden;
 }
 
-.product-image{
+.product img{
   width:100%;
   aspect-ratio:1/1;
   object-fit:cover;
@@ -196,13 +161,14 @@ body{
   background:#181818;
 }
 
-.no-image{
+.product-placeholder{
+  width:100%;
   aspect-ratio:1/1;
+  background:#181818;
   display:flex;
-  align-items:center;
   justify-content:center;
-  background:#151515;
-  font-size:50px;
+  align-items:center;
+  font-size:45px;
 }
 
 .product-info{
@@ -210,137 +176,25 @@ body{
 }
 
 .product-name{
-  font-size:14px;
-  font-weight:900;
-  line-height:1.25;
-  min-height:35px;
+  font-weight:800;
+  min-height:38px;
+  line-height:1.2;
 }
 
-.product-desc{
-  color:#777;
-  font-size:10px;
-  line-height:1.3;
-  min-height:27px;
-  margin-top:4px;
-}
-
-.price{
-  color:#ed1c24;
+.product-price{
   font-size:16px;
   font-weight:900;
-  margin:8px 0;
+  margin:8px 0 10px;
 }
 
 .add-button{
   width:100%;
-  background:#fff;
-  color:#000;
-  border:0;
-  border-radius:10px;
-  padding:10px 4px;
-  font-size:12px;
-  font-weight:900;
-}
-
-/* DELIVERY */
-
-.delivery{
-  margin-top:25px;
-  background:#151515;
-  border:1px solid #292929;
-  border-radius:18px;
-  padding:17px;
-}
-
-.delivery h3{
-  font-size:15px;
-  margin-bottom:5px;
-}
-
-.delivery p{
-  color:#888;
-  font-size:12px;
-}
-
-/* CART */
-
-.cart{
-  display:none;
-  margin-top:25px;
-  background:#111;
-  border:1px solid #292929;
-  border-radius:18px;
-  padding:15px;
-}
-
-.cart-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  padding:12px 0;
-  border-bottom:1px solid #292929;
-}
-
-.cart-name{
-  font-size:13px;
-  font-weight:800;
-}
-
-.cart-price{
-  color:#ed1c24;
-  font-size:13px;
-  font-weight:900;
-  white-space:nowrap;
-}
-
-.quantity{
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-
-.quantity button{
-  width:28px;
-  height:28px;
-  border:0;
-  border-radius:8px;
-  background:#ed1c24;
-  color:#fff;
+  border:none;
+  background:var(--red);
+  color:white;
+  border-radius:11px;
+  padding:10px 5px;
   font-weight:bold;
-  font-size:17px;
-}
-
-.quantity span{
-  min-width:15px;
-  text-align:center;
-  font-weight:bold;
-}
-
-.cart-total{
-  display:flex;
-  justify-content:space-between;
-  margin-top:18px;
-  font-size:19px;
-  font-weight:900;
-}
-
-.checkout{
-  width:100%;
-  margin-top:16px;
-  border:0;
-  border-radius:13px;
-  padding:15px;
-  background:#ed1c24;
-  color:#fff;
-  font-size:15px;
-  font-weight:900;
-}
-
-.empty{
-  text-align:center;
-  color:#777;
-  padding:20px;
 }
 
 /* BOTTOM */
@@ -350,66 +204,125 @@ body{
   left:0;
   right:0;
   bottom:0;
-  height:70px;
-  background:rgba(8,8,8,.97);
+  z-index:30;
+  background:#090909;
   border-top:1px solid #292929;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  z-index:100;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  padding:8px 8px 10px;
 }
 
 .nav{
+  border:none;
   background:none;
-  border:0;
-  color:#777;
-  font-size:10px;
-  font-weight:bold;
+  color:#888;
+  padding:7px;
+  font-size:12px;
 }
 
-.nav-icon{
+.nav span{
+  display:block;
   font-size:21px;
   margin-bottom:3px;
 }
 
 .nav.active{
-  color:#ed1c24;
+  color:white;
 }
 
-@media(max-width:360px){
+/* CART */
 
-  .logo img{
-    width:145px;
-  }
+.cart-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  z-index:50;
+  display:none;
+  align-items:flex-end;
+}
+
+.cart-overlay.show{
+  display:flex;
+}
+
+.cart{
+  width:100%;
+  max-height:82vh;
+  overflow:auto;
+  background:#111;
+  border-radius:24px 24px 0 0;
+  padding:18px;
+}
+
+.cart-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.close-button{
+  background:#222;
+  color:white;
+  border:none;
+  border-radius:10px;
+  padding:8px 12px;
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid #292929;
+  padding:13px 0;
+}
+
+.quantity button{
+  width:30px;
+  height:30px;
+  background:#222;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-size:18px;
+}
+
+.checkout{
+  width:100%;
+  margin-top:12px;
+  border:none;
+  border-radius:13px;
+  background:var(--red);
+  color:white;
+  padding:14px;
+  font-weight:900;
+}
+
+.empty{
+  padding:25px;
+  text-align:center;
+  color:#aaa;
+  background:#151515;
+  border-radius:15px;
+}
+
+@media(min-width:700px){
 
   .products{
-    gap:8px;
-  }
-
-  .product-info{
-    padding:8px;
-  }
-
-  .product-name{
-    font-size:13px;
-  }
-
-  .price{
-    font-size:14px;
+    grid-template-columns:repeat(4,1fr);
+    max-width:1100px;
+    margin:auto;
   }
 
 }
-
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
 <!-- HEADER -->
 
-<div class="header">
+<header class="header">
 
   <div class="logo">
     <img
@@ -420,19 +333,19 @@ body{
 
   <button
     class="cart-button"
-    onclick="showCart()"
+    onclick="openCart()"
   >
-    🛒
+    🛒 <span id="cartCount">0</span>
   </button>
 
-</div>
+</header>
 
 
 <!-- HERO -->
 
-<div class="hero">
+<section class="hero">
 
-  <div class="hero-label">
+  <div class="hero-small">
     REAL BURGERS. REAL TASTE.
   </div>
 
@@ -442,337 +355,587 @@ body{
   </h1>
 
   <p>
-    Янги тайёрланган бургерлар,
-    hot dog, shawarma ва snacks.
+    Янги тайёрланган бургерлар, Hot Dog,
+    Shawarma ва Snacks.
   </p>
 
   <button
-    class="main-button"
-    onclick="scrollToCategory('burgers')"
+    class="order-button"
+    onclick="showAll()"
   >
-    БУЮРТМА БЕРИШ
+    🛒 БУЮРТМА БЕРИШ
   </button>
 
+</section>
+
+
+<!-- MENU -->
+
+<div class="title">
+  Меню
 </div>
-
-
-<!-- CATEGORIES -->
-
-<div class="section-title">
-  <h2>Меню</h2>
-  <span>БАРЧАСИ</span>
-</div>
-
-<div class="categories">
-
-  <div class="category"
-       onclick="scrollToCategory('burgers')">
-    <div class="category-icon">🍔</div>
-    <div class="category-name">Burgerлар</div>
-  </div>
-
-  <div class="category"
-       onclick="scrollToCategory('hotdogs')">
-    <div class="category-icon">🌭</div>
-    <div class="category-name">Hot Dog</div>
-  </div>
-
-  <div class="category"
-       onclick="scrollToCategory('shawarma')">
-    <div class="category-icon">🌯</div>
-    <div class="category-name">Shawarma</div>
-  </div>
-
-  <div class="category"
-       onclick="scrollToCategory('snacks')">
-    <div class="category-icon">🍟</div>
-    <div class="category-name">Snacks</div>
-  </div>
-
-  <div class="category"
-       onclick="scrollToCategory('drinks')">
-    <div class="category-icon">🥤</div>
-    <div class="category-name">Drinks</div>
-  </div>
-
-  <div class="category"
-       onclick="scrollToCategory('desserts')">
-    <div class="category-icon">🍰</div>
-    <div class="category-name">Dessert</div>
-  </div>
-
-  <div class="category"
-       onclick="scrollToCategory('combos')">
-    <div class="category-icon">🔥</div>
-    <div class="category-name">Combo</div>
-  </div>
-
-</div>
-
-
-<!-- BURGERS -->
 
 <div
-  class="category-section"
-  id="burgers"
+  class="categories"
+  id="categories"
+></div>
+
+<div
+  class="title"
+  id="sectionTitle"
+>
+  Барча маҳсулотлар
+</div>
+
+<div
+  class="products"
+  id="products"
+></div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom">
+
+  <button
+    class="nav active"
+    onclick="showAll()"
+  >
+    <span>🏠</span>
+    Бош саҳифа
+  </button>
+
+  <button
+    class="nav"
+    onclick="scrollToMenu()"
+  >
+    <span>🍔</span>
+    Меню
+  </button>
+
+  <button
+    class="nav"
+    onclick="openCart()"
+  >
+    <span>🛒</span>
+    Сават
+    <b id="bottomCount">0</b>
+  </button>
+
+</nav>
+
+
+<!-- CART -->
+
+<div
+  class="cart-overlay"
+  id="cartOverlay"
+  onclick="closeOutside(event)"
 >
 
-<div class="category-heading">
-  <div class="red-line"></div>
-  <h2>🍔 Burgerлар</h2>
-</div>
+  <div class="cart">
 
-<div class="products">
+    <div class="cart-header">
 
+      <h2>
+        🛒 Сават
+      </h2>
 
-<!-- 1 -->
+      <button
+        class="close-button"
+        onclick="closeCart()"
+      >
+        ✕
+      </button>
 
-<div class="product">
-<img class="product-image"
-src="01_Classic_Burger.png">
+    </div>
 
-<div class="product-info">
+    <div id="cartItems"></div>
 
-<div class="product-name">
-Classic Burger
-</div>
+    <h3 id="cartTotal">
+      Жами: 0 сўм
+    </h3>
 
-<div class="price">
-56 000 сўм
-</div>
+    <button
+      class="checkout"
+      onclick="checkout()"
+    >
+      БУЮРТМА БЕРИШ
+    </button>
 
-<button class="add-button"
-onclick="add('Classic Burger',56000)">
-+ САВАТГА
-</button>
-
-</div>
-</div>
-
-
-<!-- 2 -->
-
-<div class="product">
-<img class="product-image"
-src="02_Cheeseburger.png">
-
-<div class="product-info">
-
-<div class="product-name">
-Cheeseburger
-</div>
-
-<div class="price">
-62 000 сўм
-</div>
-
-<button class="add-button"
-onclick="add('Cheeseburger',62000)">
-+ САВАТГА
-</button>
+  </div>
 
 </div>
-</div>
 
 
-<!-- 3 -->
+<script>
+
+/* =====================================
+   PRODUCTS
+===================================== */
+
+const products = [
+
+/* BURGERS */
+
+{
+ category:"Бургерлар",
+ name:"Classic Burger",
+ price:56000,
+ image:"01_Classic_Burger.png"
+},
+
+{
+ category:"Бургерлар",
+ name:"Cheeseburger",
+ price:62000,
+ image:"02_Cheeseburger.png"
+},
+
+{
+ category:"Бургерлар",
+ name:"Double Cheeseburger",
+ price:94000,
+ image:"03_Double_Cheeseburger.png"
+},
+
+{
+ category:"Бургерлар",
+ name:"American Burger",
+ price:81000,
+ image:"04_American_Burger.png"
+},
+
+{
+ category:"Бургерлар",
+ name:"BBQ Burger",
+ price:75000,
+ image:"05_BBQ_Burger.png"
+},
+
+{
+ category:"Бургерлар",
+ name:"Mushroom Burger",
+ price:69000,
+ image:"06_Mushroom_Burger.png"
+},
+
+{
+ category:"Бургерлар",
+ name:"Jalapeño Burger",
+ price:69000,
+ image:"07_Jalapeno_Burger.png"
+},
+
+{
+ category:"Бургерлар",
+ name:"Chicken Burger",
+ price:56000,
+ image:"08_Chicken_Burger.png"
+},
+
+{
+ category:"Бургерлар",
+ name:"Crispy Chicken Burger",
+ price:62000,
+ image:"09_Crispy_Chicken_Burger.png"
+},
+
+{
+ category:"Бургерлар",
+ name:"Mega Burger",
+ price:112000,
+ image:"10_Mega_Burger.png"
+},
+
+
+/* HOT DOG */
+
+{
+ category:"Hot Dog",
+ name:"Classic Hot Dog",
+ price:29000,
+ image:"11_Classic_Hot_Dog.png"
+},
+
+{
+ category:"Hot Dog",
+ name:"Cheese Hot Dog",
+ price:35000,
+ image:"12_Cheese_Hot_Dog.png"
+},
+
+{
+ category:"Hot Dog",
+ name:"Double Hot Dog",
+ price:47000,
+ image:"13_Double_Hot_Dog.png"
+},
+
+{
+ category:"Hot Dog",
+ name:"Chili Hot Dog",
+ price:41000,
+ image:"14_Chili_Hot_Dog.png"
+},
+
+
+/* SHAWARMA */
+
+{
+ category:"Shawarma",
+ name:"Chicken Shawarma",
+ price:53000,
+ image:"22_Chicken_Shawarma.png"
+},
+
+{
+ category:"Shawarma",
+ name:"Beef Shawarma",
+ price:59000,
+ image:"23_Beef_Shawarma.png"
+},
+
+{
+ category:"Shawarma",
+ name:"Cheese Shawarma",
+ price:65000,
+ image:"25_Cheese_Shawarma.png"
+},
+
+
+/* SNACKS */
+
+{
+ category:"Snacks",
+ name:"Fries S",
+ price:21000,
+ image:"15_French_Fries_S.png"
+},
+
+{
+ category:"Snacks",
+ name:"Fries L",
+ price:33000,
+ emoji:"🍟"
+},
+
+{
+ category:"Snacks",
+ name:"Loaded Fries",
+ price:45000,
+ image:"16_Loaded_Fries.png"
+},
+
+{
+ category:"Snacks",
+ name:"Onion Rings",
+ price:29000,
+ image:"17_Onion_Rings.png"
+},
+
+{
+ category:"Snacks",
+ name:"Chicken Strips 3pcs",
+ price:41000,
+ image:"18_Chicken_Strips_3pcs.png"
+},
+
+{
+ category:"Snacks",
+ name:"Nuggets 6pcs",
+ price:33000,
+ image:"19_Nuggets_6pcs.png"
+},
+
+{
+ category:"Snacks",
+ name:"Mozzarella Sticks 4pcs",
+ price:38000,
+ image:"20_Mozzarella_Sticks_4pcs.png"
+},
+
+
+/* DRINKS */
+
+{
+ category:"Drinks",
+ name:"Coca-Cola",
+ price:18000,
+ image:"26_Coca_Cola.png"
+},
+
+{
+ category:"Drinks",
+ name:"Fanta",
+ price:18000,
+ image:"27_Fanta.png"
+},
+
+{
+ category:"Drinks",
+ name:"Sprite",
+ price:18000,
+ image:"28_Sprite.png"
+},
+
+{
+ category:"Drinks",
+ name:"Fuze Tea",
+ price:21000,
+ emoji:"🧋"
+},
+
+{
+ category:"Drinks",
+ name:"Mineral Water",
+ price:12000,
+ image:"33_Water.png"
+},
+
+{
+ category:"Drinks",
+ name:"Juice",
+ price:21000,
+ emoji:"🧃"
+},
+
+
+/* DESSERTS */
+
+{
+ category:"Dessert",
+ name:"Brownie",
+ price:29000,
+ emoji:"🍫"
+},
+
+{
+ category:"Dessert",
+ name:"Ice Cream",
+ price:21000,
+ emoji:"🍦"
+},
+
+{
+ category:"Dessert",
+ name:"Cheesecake",
+ price:33000,
+ emoji:"🍰"
+},
+
+
+/* COMBO */
+
+{
+ category:"Combo",
+ name:"Combo 1",
+ price:77000,
+ emoji:"🔥"
+},
+
+{
+ category:"Combo",
+ name:"Combo 2",
+ price:112000,
+ emoji:"🔥"
+},
+
+{
+ category:"Combo",
+ name:"Combo 3",
+ price:77000,
+ emoji:"🔥"
+},
+
+{
+ category:"Combo",
+ name:"Family Combo",
+ price:294000,
+ emoji:"🔥"
+}
+
+];
+
+
+/* =====================================
+   CATEGORIES
+===================================== */
+
+const categories = [
+  "Барчаси",
+  "Бургерлар",
+  "Hot Dog",
+  "Shawarma",
+  "Snacks",
+  "Drinks",
+  "Dessert",
+  "Combo"
+];
+
+const categoryIcons = {
+
+  "Барчаси":"🍽️",
+  "Бургерлар":"🍔",
+  "Hot Dog":"🌭",
+  "Shawarma":"🌯",
+  "Snacks":"🍟",
+  "Drinks":"🥤",
+  "Dessert":"🍰",
+  "Combo":"🔥"
+
+};
 
-<div class="product">
-<img class="product-image"
-src="03_Double_Cheeseburger.png">
 
-<div class="product-info">
+/* =====================================
+   CART
+===================================== */
+
+let cart = [];
+
+
+/* =====================================
+   MONEY
+===================================== */
 
-<div class="product-name">
-Double Cheeseburger
-</div>
+function money(number){
 
-<div class="price">
-94 000 сўм
-</div>
+  return number
+    .toLocaleString("ru-RU")
+    + " сўм";
 
-<button class="add-button"
-onclick="add('Double Cheeseburger',94000)">
-+ САВАТГА
-</button>
+}
 
-</div>
-</div>
 
+/* =====================================
+   RENDER CATEGORIES
+===================================== */
 
-<!-- 4 -->
+function renderCategories(){
 
-<div class="product">
-<img class="product-image"
-src="04_American_Burger.png">
+  const box =
+    document.getElementById("categories");
 
-<div class="product-info">
+  box.innerHTML =
+    categories.map(
+      (category,index)=>`
 
-<div class="product-name">
-American Burger
-</div>
+        <button
+          class="category ${index===0?"active":""}"
+          onclick="filterCategory('${category}',this)"
+        >
 
-<div class="price">
-81 000 сўм
-</div>
+          ${categoryIcons[category]}
+          ${category}
 
-<button class="add-button"
-onclick="add('American Burger',81000)">
-+ САВАТГА
-</button>
+        </button>
 
-</div>
-</div>
+      `
+    ).join("");
 
+}
 
-<!-- 5 -->
 
-<div class="product">
-<img class="product-image"
-src="05_BBQ_Burger.png">
+/* =====================================
+   PRODUCT CARD
+===================================== */
 
-<div class="product-info">
+function productCard(product,index){
 
-<div class="product-name">
-BBQ Burger
-</div>
+  let visual;
 
-<div class="price">
-75 000 сўм
-</div>
+  if(product.image){
 
-<button class="add-button"
-onclick="add('BBQ Burger',75000)">
-+ САВАТГА
-</button>
+    visual = `
 
-</div>
-</div>
+      <img
+        src="${product.image}"
+        alt="${product.name}"
+        onerror="imageError(this,'${product.emoji || "🍔"}')"
+      >
 
+    `;
 
-<!-- 6 -->
+  }else{
 
-<div class="product">
-<img class="product-image"
-src="06_Mushroom_Burger.png">
+    visual = `
 
-<div class="product-info">
+      <div class="product-placeholder">
+        ${product.emoji || "🍔"}
+      </div>
 
-<div class="product-name">
-Mushroom Burger
-</div>
+    `;
 
-<div class="price">
-69 000 сўм
-</div>
+  }
 
-<button class="add-button"
-onclick="add('Mushroom Burger',69000)">
-+ САВАТГА
-</button>
 
-</div>
-</div>
+  return `
 
+    <article class="product">
 
-<!-- 7 -->
+      ${visual}
 
-<div class="product">
-<img class="product-image"
-src="07_Jalapeno_Burger.png">
+      <div class="product-info">
 
-<div class="product-info">
+        <div class="product-name">
+          ${product.name}
+        </div>
 
-<div class="product-name">
-Jalapeño Burger
-</div>
+        <div class="product-price">
+          ${money(product.price)}
+        </div>
 
-<div class="price">
-69 000 сўм
-</div>
+        <button
+          class="add-button"
+          onclick="addToCart(${index})"
+        >
+          + САВАТГА
+        </button>
 
-<button class="add-button"
-onclick="add('Jalapeño Burger',69000)">
-+ САВАТГА
-</button>
+      </div>
 
-</div>
-</div>
+    </article>
 
+  `;
 
-<!-- 8 -->
+}
 
-<div class="product">
-<img class="product-image"
-src="08_Chicken_Burger.png">
 
-<div class="product-info">
+/* =====================================
+   IMAGE ERROR
+===================================== */
 
-<div class="product-name">
-Chicken Burger
-</div>
+function imageError(image,emoji){
 
-<div class="price">
-56 000 сўм
-</div>
+  image.outerHTML = `
 
-<button class="add-button"
-onclick="add('Chicken Burger',56000)">
-+ САВАТГА
-</button>
+    <div class="product-placeholder">
+      ${emoji}
+    </div>
 
-</div>
-</div>
+  `;
 
+}
 
-<!-- 9 -->
 
-<div class="product">
-<img class="product-image"
-src="09_Crispy_Chicken_Burger.png">
+/* =====================================
+   RENDER PRODUCTS
+===================================== */
 
-<div class="product-info">
+function renderProducts(
+  list=products,
+  title="Барча маҳсулотлар"
+){
 
-<div class="product-name">
-Crispy Chicken Burger
-</div>
+  document.getElementById(
+    "sectionTitle"
+  ).textContent = title;
 
-<div class="price">
-62 000 сўм
-</div>
 
-<button class="add-button"
-onclick="add('Crispy Chicken Burger',62000)">
-+ САВАТГА
-</button>
+  const box =
+    document.getElementById("products");
 
-</div>
-</div>
 
+  if(!list.length){
 
-<!-- 10 -->
-
-<div class="product">
-<img class="product-image"
-src="10_Mega_Burger.png">
-
-<div class="product-info">
-
-<div class="product-name">
-Mega Burger
-</div>
-
-<div class="price">
-112 000 сўм
-</div>
-
-<button class="add-button"
-onclick="add('Mega Burger',112000)">
-+ САВАТГА
-</button>
-
-</div>
-</div>
-
-</div>
-</
+    box
